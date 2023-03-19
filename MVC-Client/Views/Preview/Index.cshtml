@@ -1,0 +1,113 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@section Styles
+    {
+    <style type="text/css">
+
+
+        .title-container {
+            margin-top: 200px;
+            text-align: center;
+            text-align: center
+        }
+
+        .to-regist-button {
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            margin-top: 100px;
+        }
+
+            .btn-container button {
+                text-align: center;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                background-color: rgba(3,3,3,0);
+                border: 1px solid gray;
+                transition: 0.5s;
+                margin-bottom:200px;
+            }
+
+                .btn-container button:hover {
+                    background-color: cornflowerblue;
+                    color: white;
+                    border: 1px solid white;
+                }
+          .main-content{
+
+             display:flex;
+            justify-content:center;
+            color:white;
+
+          }
+
+        .container-item{
+            border-radius: 10px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            background-color: cornflowerblue;
+        }
+        .container-item >.item{
+        text-align:center;
+        }
+        .container-item h1{
+            border-bottom:1px solid blue;
+            padding-bottom:5px;
+            margin:10px
+        }
+        .item{
+            border-bottom: 1px solid blue;
+            transition:1s;
+            font-size:20px;
+            padding:20px;
+        }
+
+            .item:hover {
+            background-color:white;
+            color:blue;
+            margin-top:20px
+        }
+
+    </style>
+}
+<div>
+    <div class="title-container">
+        <p>
+            What is Lorem Ipsum?
+            Lorem Ipsum is simply dummy text of the printing and ty Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+
+    </div>
+    <div class="btn-container">
+
+
+
+
+        <button class="to-regist-button">↓</button>
+
+    </div>
+
+    <div class="main-content">
+        <div class="container-item">
+            <h1>Type Registraition</h1>
+            <div class="item"><a asp-controller="Registration" asp-action="University">University</a></div>
+            <div class="item"><a asp-controller="Registration" asp-action="RegistrationUser"> Dean</a></div>
+            <div class="item"><a asp-controller="Registration" asp-action="RegistrationUser">Teacher</a></div>
+            <div class="item"><a asp-controller="Registration" asp-action="RegistrationUser">Student</a></div>
+
+            
+        </div>
+    </div>
+
+</div>
+
+
