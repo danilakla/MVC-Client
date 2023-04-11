@@ -1,19 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Client.DTO;
+using MVC_Client.DTO.Server;
+using MVC_Client.Services;
 
 namespace MVC_Client.Controllers;
 public class AuthenticationController : Controller
 {
+    private readonly IAuthenticationService _authenticationService;
+
+    public AuthenticationController(IAuthenticationService authenticationService)
+    {
+        _authenticationService = authenticationService;
+    }
     public IActionResult Login()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult Login(AddLoginUserDTO addLoginUserDTO)
+    public async Task<IActionResult> Login(AuthDto addLoginUserDTO)
     {
-        Response.Cookies.Append("access_token", $"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZGFueSIsImp0aSI6ImNiMWNjMjU0LTlhNTAtNGY0Ny04Mzg5LWU5MDc1MDU0MDUxYiIsImV4cCI6MTY4MjgzMDQ4NX0.z3_0aKiAzimYlby3ZUA85V0a6umbjTUkIUlkoojd8OM");
+        try
+        {
+            var tokens = await _authenticationService.LoginUser(addLoginUserDTO);
+            Response.Cookies.Append("access_token", tokens.AccessToken);
+            Response.Cookies.Append("refresh_token", tokens.RefreshToken);
+            return Redirect("/Home/Index");
+        }
+        catch (Exception)
+        {
+            return Redirect("/Preview");
 
-        return Redirect("/Home/Index");
+            throw;
+        }
+
+   
     }
 }

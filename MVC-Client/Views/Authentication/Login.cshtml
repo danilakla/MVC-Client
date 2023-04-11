@@ -1,5 +1,5 @@
-﻿@using MVC_Client.DTO;
-@model AddLoginUserDTO
+﻿@using MVC_Client.DTO.Server;
+@model AuthDto
 @section Styles{
     <style type="text/css">
         h1 {
@@ -31,12 +31,7 @@
         <div class="form-group">
             <input asp-for="Password" type="password" class="form-control" placeholder="Password">
         </div>
-        <div class="form-group">
-            <input asp-for="Name" type="text" class="form-control" placeholder="Name">
-        </div>
-              <div class="form-group">
-            <input type="text" asp-for="Secondname" class="form-control" placeholder="Secondname">
-        </div>
+      
         <hr />
   
         <button type="submit" class="btn btn-primary">Submit</button>

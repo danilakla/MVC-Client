@@ -4,5 +4,7 @@ namespace MVC_Client.DTO;
 
 public class RegistrationUserDTO:UserModel
 {
-    public string Token { get; set; }
+    public string AuthenticationToken { get; set; }
+    public string Role { get; set; }
+
 }

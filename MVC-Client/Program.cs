@@ -1,12 +1,24 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MVC_Client.Controllers;
+using MVC_Client.Infrastructure;
+using MVC_Client.Services;
 using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
-
+int coun = 0;
 // Add services to the container.
+
+builder.Services.AddSingleton<IRegistrationService, RegistrationService>();
+builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
+
+builder.Services.AddHttpClient<RegistrationController>().AddHttpMessageHandler<AuthorizationDelegatingHandler>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddTransient<AuthorizationDelegatingHandler>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(options =>
 {
@@ -22,8 +34,9 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = false,
         ValidateIssuer = false,
         ValidateAudience = false,
-        RequireExpirationTime = false,
+        RequireExpirationTime = true,
         ValidateLifetime = true,
+        LifetimeValidator = CustomLifetimeValidator,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AppSettings:Token"]))
     };
 });
@@ -47,7 +60,9 @@ app.Use(async (context, next) =>
     {
  string token;
     context.Request.Cookies.TryGetValue("access_token",out token);
-    context.Request.Headers.Authorization = token;
+
+       
+        context.Request.Headers.Authorization = "Bearer "+token;
     }
    
     await next.Invoke();
@@ -57,9 +72,24 @@ app.UseStatusCodePages(async context =>
 {
     var response = context.HttpContext.Response;
 
-    if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
-            response.StatusCode == (int)HttpStatusCode.Forbidden)
+    if ((response.StatusCode == (int)HttpStatusCode.Unauthorized ||
+            response.StatusCode == (int)HttpStatusCode.Forbidden)&& coun == 0)
+    { 
+      
+            //redirect to refre token;
+            coun++; 
+       // context.HttpContext.Response.Cookies.Append("access_token", $"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZGFueSIsImp0aSI6ImNiMWNjMjU0LTlhNTAtNGY0Ny04Mzg5LWU5MDc1MDU0MDUxYiIsImV4cCI6MTY4MjgzMDQ4NX0.z3_0aKiAzimYlby3ZUA85V0a6umbjTUkIUlkoojd8OM");
+
+        //if good so redirect to home if bad
+
+        response.Redirect("/Home/Index");
+    }
+    else {
+        coun++;
         response.Redirect("/Preview/Index");
+    }
+
+
 });
 
 app.UseAuthorization();
@@ -69,3 +99,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+ bool CustomLifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken tokenToValidate, TokenValidationParameters @param)
+{
+    if (expires != null)
+    {
+        return expires > DateTime.UtcNow;
+    }
+    return false;
+
+}

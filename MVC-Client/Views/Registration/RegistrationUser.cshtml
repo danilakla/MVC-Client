@@ -36,12 +36,25 @@
         <input asp-for="Name" type="text" class="form-control" placeholder="Name">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="Secondname" class="form-control" placeholder="Secondname">
+        <input type="text" asp-for="LastName" class="form-control" placeholder="Secondname">
     </div>
 
        <div class="form-group">
-        <input type="text" asp-for="Token" class="form-control" placeholder="Confirm Token">
+        <input type="text" asp-for="AuthenticationToken" class="form-control" placeholder="Confirm Token">
     </div>
+
+    <div class="form-group">
+
+    <select class="form-select" asp-for="Role" aria-label="Default select example">
+        <option selected>Choose role</option>
+        <option value="Dean">Dean</option>
+        <option value="Teacher">Teacher</option>
+        <option value="Student">Student</option>
+    </select>
+    </div>
+
+
+
     <hr />
 
     <button type="submit" class="btn btn-primary">Submit</button>

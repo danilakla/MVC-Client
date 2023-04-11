@@ -1,9 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using MVC_Client.DTO;
+using MVC_Client.Services;
+using System.Net.Http;
 
 namespace MVC_Client.Controllers;
 public class RegistrationController : Controller
 {
+    private readonly IRegistrationService _registrationService;
+
+    public RegistrationController(IRegistrationService registrationService)
+    {
+        _registrationService = registrationService;
+    }
+  
     public IActionResult Index()
     {
         return View();
@@ -16,8 +26,19 @@ public class RegistrationController : Controller
     [HttpPost]
     public async Task<IActionResult> University(CreateUniversityDTO createUniversityDTO)
     {
-       
-        return Redirect("/confirm/email");
+        try
+        {
+
+            await _registrationService.RegistrationUniversity(createUniversityDTO);
+            return Redirect("/confirm/email");
+
+        }
+        catch (Exception)
+        {
+            return Redirect("/Preview");
+
+            throw;
+        }
     }
 
     public IActionResult RegistrationUser()
@@ -27,9 +48,21 @@ public class RegistrationController : Controller
     [HttpPost]
     public async Task<IActionResult> RegistrationUser(RegistrationUserDTO registrationUserDTO)
     {
-        Response.Cookies.Append("access_token", $"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZGFueSIsImp0aSI6ImNiMWNjMjU0LTlhNTAtNGY0Ny04Mzg5LWU5MDc1MDU0MDUxYiIsImV4cCI6MTY4MjgzMDQ4NX0.z3_0aKiAzimYlby3ZUA85V0a6umbjTUkIUlkoojd8OM");
+        try
+        {
 
-        return Redirect("/Home/Index");
+            await _registrationService.RegistrationUser(registrationUserDTO);
+            return Redirect("/confirm/email");
+
+        }
+        catch (Exception)
+        {
+            return Redirect("/Preview");
+
+            throw;
+        }
+
+
     }
 
 
@@ -38,6 +71,7 @@ public class RegistrationController : Controller
     [HttpGet("/confirm/email")]
     public IActionResult Confirm()
     {
+
         return View();
     }
 }
