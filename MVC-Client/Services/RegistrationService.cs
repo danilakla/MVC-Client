@@ -1,6 +1,7 @@
 ﻿using MVC_Client.DTO;
 using MVC_Client.DTO.Server;
 using MVC_Client.Infrastructure;
+using MVC_Client.Models;
 using System.Text.Json;
 
 namespace MVC_Client.Services;
@@ -46,7 +47,7 @@ public class RegistrationService : IRegistrationService
 
     }
 
-    public async Task RegistrationUser(RegistrationUserDTO  registrationUserDTO)
+    public async Task<JwtTokens> RegistrationUser(RegistrationUserDTO  registrationUserDTO)
     {
         try
         {
@@ -64,6 +65,18 @@ public class RegistrationService : IRegistrationService
 
             var response = await _httpClient.PostAsync(uri, stringContent);
             response.EnsureSuccessStatusCode();
+            if (registrationUserDTO.Role == "Student") {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var tokens = JsonSerializer.Deserialize<JwtTokens>(jsonResponse, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                return tokens;
+            }
+            else {
+                return null;
+                    
+                    }
         }
         catch (Exception)
         {

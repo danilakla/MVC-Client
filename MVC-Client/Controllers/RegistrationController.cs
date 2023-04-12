@@ -51,8 +51,19 @@ public class RegistrationController : Controller
         try
         {
 
-            await _registrationService.RegistrationUser(registrationUserDTO);
-            return Redirect("/confirm/email");
+            var tokens=await _registrationService.RegistrationUser(registrationUserDTO);
+            if(tokens is null)
+            {
+                return Redirect("/confirm/email");
+
+            }
+            else
+            {
+                Response.Cookies.Append("access_token", tokens.AccessToken);
+                Response.Cookies.Append("refresh_token", tokens.RefreshToken);
+                return Redirect("/Home");
+
+            }
 
         }
         catch (Exception)

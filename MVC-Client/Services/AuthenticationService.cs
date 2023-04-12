@@ -24,8 +24,14 @@ public class AuthenticationService : IAuthenticationService
         {
             string uri = uri = API.Identity.AuthUser(IdentityApiHost);
 
-          
-            var stringContent = new StringContent(JsonSerializer.Serialize(userModel), System.Text.Encoding.UTF8, "application/json");
+            var reqBody = new UserModel
+            {
+                Email =userModel.Email,
+                LastName="em",
+                Name="em",
+                Password=userModel.Password,
+                };
+            var stringContent = new StringContent(JsonSerializer.Serialize(reqBody), System.Text.Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync(uri, stringContent);
             response.EnsureSuccessStatusCode();
