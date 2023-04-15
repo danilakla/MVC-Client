@@ -7,26 +7,36 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVC_Client.styles.css" asp-append-version="true" />
-        @RenderSection("Styles", required: false)
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
 
 </head>
 <body>
-    <header style="margin-top:20px">
-        <nav class="navbar fixed-top">
-       <div class="container-fluid">
-           <div>logo</div>
-           <div>
-               <a asp-controller="Authentication" asp-action="Login">Login</a>
-                    <a>Inro</a>
-                    <a>Home</a>
+  
+    @if (User.Identity.IsAuthenticated)
+    {
+        <nav class="navbar fixed-top bg-body-tertiary">
+            <div class="container justify-content-end" >
+                <div class="navbar-brand" href="#">Fixed top</div>
+                <div class="navbar-brand" href="#">Fixed top</div>
+                <div class="navbar-brand" href="#">Fixed top</div>
 
-           </div>
-       </div>
+            </div>
         </nav>
-    </header>
-    <div class="container">
+    }
+    else
+    {
+         <nav class="navbar fixed-top bg-body-tertiary">
+            <div class="container justify-content-end" >
+                <div class="navbar-brand" href="#">Fixed top</div>
+
+            </div>
+        </nav>
+    }
+    <div class="container" >
+
         <main role="main" class="pb-3">
-           
             @RenderBody()
         </main>
     </div>

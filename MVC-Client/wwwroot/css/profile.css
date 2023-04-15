@@ -1,0 +1,78 @@
+﻿.profile-bg-img {
+    background-size: cover;
+    width: 100%;
+    min-height: 300px;
+    position:relative
+}
+
+.profile-icon-img {
+    background-size: cover;
+
+    width:150px;
+    height:150px;
+    position: absolute;
+    border-radius:50%;
+    bottom:-20%;
+    left:40px;
+}
+.profile-bg-img button{
+    position:absolute;
+    right:0;
+    bottom:-15%;
+
+}
+.main-user-info{
+    margin-top:100px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.tokens {
+    display: flex;
+    flex-direction: column;
+}
+.skill{
+ padding:60px;
+    background-color:grey;
+}
+.skill-title{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.skill-item{
+    background-color:aliceblue;
+    color:black;
+
+    display:flex;
+    flex-direction:row;
+    margin-bottom:40px;
+}
+
+.project {
+    margin-top:200px;
+    padding: 60px;
+    background-color: grey;
+}
+
+.project-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.project-item {
+    background-color: aliceblue;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+}
+.project-item {
+    display: flex;
+    flex-direction: column;
+}
+.project-item img{
+    height:40px;
+    width:40px;
+}

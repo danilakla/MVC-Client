@@ -4,12 +4,12 @@ using MVC_Client.Infrastructure;
 using MVC_Client.Models;
 using System.Text.Json;
 
-namespace MVC_Client.Services;
+namespace MVC_Client.Services.Registration;
 
 public class RegistrationService : IRegistrationService
 {
     private readonly HttpClient _httpClient;
-    private readonly string  IdentityApiHost;
+    private readonly string IdentityApiHost;
 
     public RegistrationService(HttpClient httpClient, IConfiguration configuration)
     {
@@ -18,7 +18,7 @@ public class RegistrationService : IRegistrationService
     }
 
 
-    public async  Task RegistrationUniversity(CreateUniversityDTO createUniversityDTO)
+    public async Task RegistrationUniversity(CreateUniversityDTO createUniversityDTO)
     {
         try
         {
@@ -26,12 +26,12 @@ public class RegistrationService : IRegistrationService
             var reqBody = new AddUniversityAndManager
             {
                 University = new University { Address = createUniversityDTO.Address, Name = createUniversityDTO.NameOfUniversity },
-                Email= createUniversityDTO.Email,
-                Name= createUniversityDTO.Name,
-                LastName=createUniversityDTO.LastName,
-                Password=createUniversityDTO.Password,
-                Role="Manager"
-            
+                Email = createUniversityDTO.Email,
+                Name = createUniversityDTO.Name,
+                LastName = createUniversityDTO.LastName,
+                Password = createUniversityDTO.Password,
+                Role = "Manager"
+
             };
             var stringContent = new StringContent(JsonSerializer.Serialize(reqBody), System.Text.Encoding.UTF8, "application/json");
 
@@ -43,11 +43,11 @@ public class RegistrationService : IRegistrationService
 
             throw new BadHttpRequestException(e.Message);
         }
-    
+
 
     }
 
-    public async Task<JwtTokens> RegistrationUser(RegistrationUserDTO  registrationUserDTO)
+    public async Task<JwtTokens> RegistrationUser(RegistrationUserDTO registrationUserDTO)
     {
         try
         {
@@ -65,7 +65,8 @@ public class RegistrationService : IRegistrationService
 
             var response = await _httpClient.PostAsync(uri, stringContent);
             response.EnsureSuccessStatusCode();
-            if (registrationUserDTO.Role == "Student") {
+            if (registrationUserDTO.Role == "Student")
+            {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 var tokens = JsonSerializer.Deserialize<JwtTokens>(jsonResponse, new JsonSerializerOptions
                 {
@@ -73,10 +74,11 @@ public class RegistrationService : IRegistrationService
                 });
                 return tokens;
             }
-            else {
+            else
+            {
                 return null;
-                    
-                    }
+
+            }
         }
         catch (Exception)
         {
@@ -84,6 +86,6 @@ public class RegistrationService : IRegistrationService
             throw;
         }
 
- 
+
     }
 }

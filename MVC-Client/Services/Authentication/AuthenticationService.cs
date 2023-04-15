@@ -4,7 +4,7 @@ using MVC_Client.Infrastructure;
 using MVC_Client.Models;
 using System.Text.Json;
 
-namespace MVC_Client.Services;
+namespace MVC_Client.Services.Authentication;
 
 public class AuthenticationService : IAuthenticationService
 {
@@ -26,17 +26,17 @@ public class AuthenticationService : IAuthenticationService
 
             var reqBody = new UserModel
             {
-                Email =userModel.Email,
-                LastName="em",
-                Name="em",
-                Password=userModel.Password,
-                };
+                Email = userModel.Email,
+                LastName = "em",
+                Name = "em",
+                Password = userModel.Password,
+            };
             var stringContent = new StringContent(JsonSerializer.Serialize(reqBody), System.Text.Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync(uri, stringContent);
             response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            var tokens=JsonSerializer.Deserialize<JwtTokens>(jsonResponse, new JsonSerializerOptions
+            var tokens = JsonSerializer.Deserialize<JwtTokens>(jsonResponse, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });

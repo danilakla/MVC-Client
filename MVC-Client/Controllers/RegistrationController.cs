@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Client.DTO;
-using MVC_Client.Services;
+using MVC_Client.Services.Registration;
 using System.Net.Http;
 
 namespace MVC_Client.Controllers;
@@ -61,7 +61,7 @@ public class RegistrationController : Controller
             {
                 Response.Cookies.Append("access_token", tokens.AccessToken);
                 Response.Cookies.Append("refresh_token", tokens.RefreshToken);
-                return Redirect("/Home");
+                return Redirect("/Profile");
 
             }
 

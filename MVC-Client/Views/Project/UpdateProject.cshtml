@@ -1,0 +1,11 @@
+﻿@model ProjectViewModel
+
+<form method="post" asp-action="UpdateProject">
+	<input asp-for="@Model.Name" value="@Model.Name" type="text" class="form-control" placeholder="Enter text of skill">
+	<textarea asp-for="@Model.Description" placeholder="Enter text of skill" class="form-control" ></textarea>
+	<input asp-for="@Model.NameUsingTech" value="@Model.NameUsingTech" type="text" class="form-control" placeholder="Enter text of skill">
+
+	<input style="display:none" asp-for="@Model.ProjectId" value="@Model.ProjectId" type="text" class="form-control" placeholder="Enter text of skill">
+
+	<button>save</button>
+</form>

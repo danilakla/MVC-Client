@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Client.DTO;
 using MVC_Client.DTO.Server;
-using MVC_Client.Services;
+using MVC_Client.Services.Authentication;
 
 namespace MVC_Client.Controllers;
 public class AuthenticationController : Controller
@@ -25,7 +25,7 @@ public class AuthenticationController : Controller
             var tokens = await _authenticationService.LoginUser(addLoginUserDTO);
             Response.Cookies.Append("access_token", tokens.AccessToken);
             Response.Cookies.Append("refresh_token", tokens.RefreshToken);
-            return Redirect("/Home/Index");
+            return Redirect("/Profile/Index");
         }
         catch (Exception)
         {

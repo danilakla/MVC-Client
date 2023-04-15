@@ -2,7 +2,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MVC_Client.Controllers;
 using MVC_Client.Infrastructure;
-using MVC_Client.Services;
+using MVC_Client.Services.Authentication;
+using MVC_Client.Services.Profile;
+using MVC_Client.Services.Project;
+using MVC_Client.Services.Registration;
+using MVC_Client.Services.Skill;
 using System.Net;
 using System.Text;
 
@@ -11,13 +15,18 @@ ConfigurationManager configuration = builder.Configuration;
 int coun = 0;
 // Add services to the container.
 
-builder.Services.AddSingleton<IRegistrationService, RegistrationService>();
-builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+
 
 builder.Services.AddHttpClient<RegistrationController>().AddHttpMessageHandler<AuthorizationDelegatingHandler>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<AuthorizationDelegatingHandler>();
+builder.Services.AddTransient<AuthorizationHttpContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(options =>
@@ -82,7 +91,7 @@ app.UseStatusCodePages(async context =>
 
         //if good so redirect to home if bad
 
-        response.Redirect("/Home/Index");
+        response.Redirect("/Profile/Index");
     }
     else {
         coun++;
