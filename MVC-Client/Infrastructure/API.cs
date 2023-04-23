@@ -33,7 +33,22 @@ public static class API
 
 
     }
+    public static class Chat
+    {
+        public static string GetContacts(string baseUri, string name = "", string lastname = "") => $"{baseUri}/get-contacts?name={name}&lastName={lastname}";
 
+        public static string GetFriends(string baseUri) => $"{baseUri}/get-friends";
+        public static string AddFriend(string baseUri) => $"{baseUri}/add-friends";
+        public static string GetNotification(string baseUri) => $"{baseUri}/get-notifications";
+        public static string SendNotification(string baseUri) => $"{baseUri}/send-notification";
+        public static string DeleteNotification(string baseUri, int id) => $"{baseUri}/delete-notification/{id}";
+
+        public static string GetMessages(string baseUri, string roomName) => $"{baseUri}/get-messages/{roomName}";
+
+        public static string DeleteFriend(string baseUri, string room) => $"{baseUri}/delete-friend/{room}";
+
+
+    }
 
 
 }

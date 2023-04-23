@@ -232,8 +232,8 @@
 
 $(document).ready(function(){
 			var data = @Html.Raw(Json.Serialize(@Model));
-			let bk = "data:image/gif;base64," + data?.userViewModel?.backgroundProfile
-			let photo = "data:image/gif;base64," + data?.userViewModel?.photo
+			let bk = "data:image/gif;base64, " + data?.userViewModel?.backgroundProfile
+			let photo = "data:image/gif;base64, " + data?.userViewModel?.photo
 
 			$(".profile-bg-img").css('background-image', `url('${bk}')`)
 			$(".profile-icon-img").css('background-image', `url('${photo}')`)

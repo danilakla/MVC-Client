@@ -1,0 +1,86 @@
+﻿@using MVC_Client.Infrastructure;
+@using MVC_Client.Models.Chat;
+@inject  AuthorizationHttpContext authCont;
+
+@model List<Contact>
+<div style="margin-top:200px">
+		<input type="text" class="form-control" placeholder="Enter name" id="nameIn">
+		<input type="text" class="form-control" placeholder="Enter lastname" id="lastnameIn">
+		<button id="searchBtn">Search</button>
+	<button class="test">Search</button>
+
+	<div class="container-contact">
+			
+
+	</div>
+</div>
+
+@section Scripts
+	{
+		<script type="text/javascript" >
+		var  token = @Html.Raw(Json.Serialize(authCont.GetIdentityTokoken()));
+		
+	
+	$(document).ready(function(){
+			   $("#searchBtn").click((event)=>{
+				$(".container-contact").empty()
+				event.stopPropagation()
+				var name = $("#nameIn").val();
+				var lastname = $("#lastnameIn").val();
+				var url = `https://localhost:7161/get-contacts?name=${name}&lastName=${lastname}`;
+				$.ajax({
+					url,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+					},
+					type:"GET",
+					success:(data)=>{
+						data.forEach(e=>{
+							$(".container-contact").append(
+								`<div class="contact" >
+												<img width=40  height=40 src="data:image/gif;base64, ${e.photo}"/>
+										<p>${e.lastName}</p>
+								<p>${e.name}</p>
+										<button class="sendNotificationBtn" idContact=${e.id}>send</button>
+								</div>`
+							)
+						})
+
+						$(".sendNotificationBtn").click( function() {
+
+							let fr={
+								FriendId: +$(this).attr("idContact"),
+								MessageBody: "Hi, let's go be friends",
+								FromWhom: "string"
+							}
+							
+							
+							var url = `https://localhost:7161/send-notification`;
+							console.log(fr);
+							$.ajax({
+								type: "POST",
+								url: url,
+								data: JSON.stringify( fr),
+								beforeSend: function (xhr) {
+									xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+								},
+								success: (data)=>{
+									console.log(data);
+								},
+								headers: {
+									'Content-Type': 'application/json'
+								},
+								dataType: "json"
+							});
+						});
+					}
+				});
+
+			   })
+
+			})
+		   
+		</script>
+			
+		<script type="text/javascript" src="@Url.Content("~/js/profile.js")"></script>
+	}
