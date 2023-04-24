@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using MVC_Client.Controllers;
 using MVC_Client.Infrastructure;
 using MVC_Client.Services.Authentication;
+using MVC_Client.Services.Chat;
 using MVC_Client.Services.Profile;
 using MVC_Client.Services.Project;
 using MVC_Client.Services.Registration;
@@ -20,6 +21,8 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IFriendService, FriendService>();
 
 
 builder.Services.AddHttpClient<RegistrationController>().AddHttpMessageHandler<AuthorizationDelegatingHandler>();

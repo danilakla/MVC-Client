@@ -1,0 +1,23 @@
+﻿@using MVC_Client.Models.Chat;
+
+@model List<Notification>
+
+
+<div style="margin-top:200px">
+	<div class="notification-container">
+		<h1>Your Notification</h1>
+		@foreach (var item in Model)
+		{
+			<a href="/notificaiton-get/@item.Id">
+			<div class="item-notif">
+					<p>@item.FromWhom</p>
+					<p>@item.RoomName</p>
+			</div>
+		</a>
+		}
+	
+		
+
+		
+	</div>
+</div>

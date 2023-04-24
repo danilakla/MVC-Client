@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVC_Client.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/notification.css" asp-append-version="true" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css'>
+
+    <link rel="stylesheet" href="~/css/chat.css" />
 
     @RenderSection("Styles", required: false)
 
@@ -18,9 +24,11 @@
     {
         <nav class="navbar fixed-top bg-body-tertiary">
             <div class="container justify-content-end" >
-                <a class="navbar-brand" href="/Contact/Index">Fixed top</a>
-                <div class="navbar-brand" href="#">Fixed top</div>
-                <div class="navbar-brand" href="#">Fixed top</div>
+                <a class="navbar-brand" href="/Contact/Index">Contacts</a>
+                <a class="navbar-brand" href="/Notification/Index">Notifications</a>
+
+                <a class="navbar-brand" href="/Profile/Index">Profile</a>
+                <a class="navbar-brand" href="/Chat/Index">Chat</a>
 
             </div>
         </nav>

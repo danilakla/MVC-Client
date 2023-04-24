@@ -42,6 +42,7 @@ public static class API
         public static string GetNotification(string baseUri) => $"{baseUri}/get-notifications";
         public static string SendNotification(string baseUri) => $"{baseUri}/send-notification";
         public static string DeleteNotification(string baseUri, int id) => $"{baseUri}/delete-notification/{id}";
+        public static string GetNotification(string baseUri,int id) => $"{baseUri}/get-notification/{id}";
 
         public static string GetMessages(string baseUri, string roomName) => $"{baseUri}/get-messages/{roomName}";
 

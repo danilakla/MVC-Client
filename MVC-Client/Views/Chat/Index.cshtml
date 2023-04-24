@@ -1,0 +1,180 @@
+﻿@using MVC_Client.Infrastructure;
+@using MVC_Client.Models.Chat;
+@inject AuthorizationHttpContext authCont;
+@model List<Friend>
+<div style="background-color: white" class="cont">
+
+    <div class="row no-gutters">
+
+        <div class="col-md-4 border-right">
+
+           
+
+            <div class="search-box">
+                <div class="input-wrapper">
+                    <i class="material-icons">search</i>
+                    <input placeholder="Search here" type="text">
+                </div>
+
+            </div>
+            <div class="list-friends">
+                @if (Model is not null)
+                {
+                    @foreach (var item in @Model)
+                {
+                    
+                    <div class="friend-drawer friend-drawer--onhover item-friend" email="@item.Email" roomName="@item.ConversationName">
+                            @if((item.Photo is null) ||(@item.Photo.Length == 0))
+                            {
+                                <img class="profile-image" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="">
+                            }
+                            else
+
+                            {
+                                                            <img class="profile-image" src="data:image/gif;base64, @item.Photo" alt="">
+
+                            }
+                        <div class="text">
+                                <h6>@item.Name</h6>
+                                <h6>@item.LastName</h6>
+                                <p>@item.Email</p>
+                        </div>
+                    </div>
+
+                    <hr>
+                } 
+                }
+               
+
+            </div>
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="settings-tray">
+
+
+            </div>
+            <div class="chat-view-window" >
+                <div class="chat-panel"></div>
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="chat-box-tray">
+                            <input type="text"id="messageInp" placeholder="Type your message here...">
+                            <i class="material-icons" id="sendBtn" >send</i>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+@section Scripts
+    {
+	<script type="text/javascript" src="@Url.Content("~/js/signalr/dist/browser/signalr.js")"></script>
+
+	<script type="text/javascript">
+		var token = @Html.Raw(Json.Serialize(authCont.GetIdentityTokoken()));
+        let param;
+        let email;
+        var connection = new signalR.HubConnectionBuilder()
+            .configureLogging(signalR.LogLevel.Debug)
+            .withUrl(`https://localhost:7161/chathub?access_token=${token}`,{
+                skipNegotiation: true,
+      transport: signalR.HttpTransportType.WebSockets
+            }).build();
+        connection.start().then(function (data) {
+ console.log(data);
+}).catch(function (err) {
+    return console.error(err);
+});
+        connection.on("ReceiveMessage", function (data) {
+                                        $(".chat-panel").append(
+                                `        <div class="row no-gutters" style="border-bottom:2px solid gray">
+
+                  <div class="col-md-3">
+                                                                    <p> ${(new Date(data.time)).getFullYear()}-${(new Date(data.time)).getMonth()}-${(new Date(data.time)).getDate()} ${(new Date(data.time)).getHours()}:${(new Date(data.time)).getMinutes()}</p>
+                    <div class="chat-bubble chat-bubble--left">
+                                      ${data.messageText}
+                    </div>
+
+                  </div>
+
+                </div>
+                        `
+							)
+
+
+});
+
+		$(document).ready(function () {
+            $("#messageInp").prop('disabled', true);
+            $("#sendBtn").prop('disabled', true);
+
+            $(".item-friend").click(function () {
+                $("#messageInp").prop('disabled', false);
+                $("#sendBtn").prop('disabled', false);
+
+                 param = $(this).attr("roomname");
+                 email = $(this).attr("email");
+
+                $(".settings-tray").empty()
+                $(".chat-panel").empty()
+                $("#sendBtn").click(function(){
+                    let payload = {
+                        MessageText: $("#messageInp").val(),
+                        DateTime: new Date(),
+                        ToWhom: email,
+                            nameRoom: param
+                    }
+                 connection.invoke("SendMessage", payload).catch(function (err) {
+        return console.error(err.toString());
+    });
+                } )
+
+                let el = $(this).clone();
+				var url = `https://localhost:7161/get-messages/${param}`;
+                				$.ajax({
+					url,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+					},
+					type: "GET",
+					success: (data) => {
+                        $('.settings-tray').append(el);
+                        console.log(data);
+						data.forEach(e => {
+                            $(".chat-panel").append(
+                                `        <div class="row no-gutters" style="border-bottom:2px solid gray">
+
+                  <div class="col-md-3">
+                                    <p> ${(new Date(e.time)).getFullYear()}-${(new Date(e.time)).getMonth()}-${(new Date(e.time)).getDate()} ${(new Date(e.time)).getHours()}:${(new Date(e.time)).getMinutes()}</p>
+                    <div class="chat-bubble chat-bubble--left">
+                              ${e.messageText}
+                    </div>
+
+                  </div>
+
+                </div>
+                        `
+							)
+						})
+
+					}
+				});
+
+			})
+
+		})
+
+	</script>
+
+	<script type="text/javascript" src="@Url.Content("~/js/chat.js")"></script>
+	}

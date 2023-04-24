@@ -1,0 +1,10 @@
+﻿.item-notif{
+    background-color:cornflowerblue;
+    color:white;
+    padding:10px;
+    margin-bottom:30px;
+}
+
+.item-notif:hover{
+    background-color:black
+}

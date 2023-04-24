@@ -1,0 +1,18 @@
+﻿@using MVC_Client.Models.Chat;
+@model Notification
+
+<div margin-top:100px>
+	
+	<div>
+		<h1>@Model.FromWhom</h1>
+		<h1>@Model.MessageText</h1>
+		<form method="post" action="/accept-notification/@Model.Id">
+			<button>accept</button>
+
+		</form>
+		<form action="/notificaiton-delete/@Model.Id" method="post">
+			<button>cansel</button>
+
+		</form>
+	</div>
+</div>
