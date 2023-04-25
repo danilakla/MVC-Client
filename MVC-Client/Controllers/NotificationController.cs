@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Client.Services.Chat;
+using MVC_Client.Services.Group;
 
 namespace MVC_Client.Controllers;
 public class NotificationController : Controller
 {
     private readonly INotificationService _notificationService;
     private readonly IFriendService _friendService;
+    private readonly IGroupService _groupService;
 
-    public NotificationController(INotificationService notificationService, IFriendService friendService)
+    public NotificationController(INotificationService notificationService, IFriendService friendService, IGroupService groupService)
     {
         _notificationService = notificationService;
         _friendService = friendService;
+        _groupService = groupService;
     }
     public async Task<IActionResult> Index()
     {
@@ -66,6 +69,23 @@ public class NotificationController : Controller
         {
             await _friendService.AddFriend(id);
             await _notificationService.DeleteNotification(id);
+
+            return Redirect("/Notification/Index");
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+    }
+
+    [HttpPost("/accept-notification-group")]
+    public async Task<IActionResult> AcceptGroup(string roomName, string emailForRoom)
+    {
+        try
+        {
+            await _groupService.AcceptInviteGroup(roomName, emailForRoom);
 
             return Redirect("/Notification/Index");
         }

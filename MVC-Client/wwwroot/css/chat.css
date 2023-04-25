@@ -10,7 +10,12 @@
 
 .list-friends {
     overflow: auto;
-    height: 70vh;
+    height: 35vh;
+}
+.list-groups {
+    border-top:2px solid black;
+    overflow: auto;
+    height: 35vh;
 }
 
 

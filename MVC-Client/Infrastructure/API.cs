@@ -49,6 +49,11 @@ public static class API
         public static string DeleteFriend(string baseUri, string room) => $"{baseUri}/delete-friend/{room}";
 
 
+        public static string AcceptInviteGroup(string baseUri, string roomname = "", string emailForRomm= "") => $"{baseUri}/acceptInvete-group?roomName={roomname}&emailForRoom={emailForRomm}";
+        public static string CreateGroup(string baseUri) => $"{baseUri}/create-group";
+        public static string GetGroups(string baseUri) => $"{baseUri}/get-groups";
+
+
     }
 
 

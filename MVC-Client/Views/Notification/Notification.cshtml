@@ -6,7 +6,9 @@
 	<div>
 		<h1>@Model.FromWhom</h1>
 		<h1>@Model.MessageText</h1>
-		<form method="post" action="/accept-notification/@Model.Id">
+		@if (string.IsNullOrEmpty(Model.RoomName))
+		{
+	<form method="post" action="/accept-notification/@Model.Id">
 			<button>accept</button>
 
 		</form>
@@ -14,5 +16,14 @@
 			<button>cansel</button>
 
 		</form>
+		}
+		else
+		{
+			<form method="post" action="/accept-notification-group?roomName=@Model.RoomName&emailForRoom=@Model.FromWhom">
+				<button>accept</button>
+
+			</form>
+		}
+	
 	</div>
 </div>
