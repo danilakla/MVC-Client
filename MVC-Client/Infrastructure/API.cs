@@ -56,5 +56,24 @@ public static class API
 
     }
 
+    public static class University
+    {
+        public static string GetFaculties(string baseUri) => $"{baseUri}/get-faculties";
 
+        public static string CreateFacultie(string baseUri) => $"{baseUri}/create-facultie";
+
+
+        public static string GenerateTokenDean(string baseUri) => $"{baseUri}/generateToken/dean";
+        public static string GenerateTokenTeacher(string baseUri) => $"{baseUri}/generateToken/teacher";
+
+
+
+        public static string GetProfessions(string baseUri) => $"{baseUri}/get-professions";
+
+        public static string CreateGroup(string baseUri) => $"{baseUri}/create-group";
+
+
+        public static string CreateProfession(string baseUri) => $"{baseUri}/create-professions";
+        public static string GenerateTokenStudent(string baseUri) => $"{baseUri}/generateToken/teacher";
+    }
 }

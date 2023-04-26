@@ -1,6 +1,7 @@
 ﻿using MVC_Client.DTO.Server;
 using MVC_Client.Infrastructure;
 using MVC_Client.Models;
+using MVC_Client.Models.ViewModels;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,7 +24,7 @@ public class ProfileService : IProfileService
         _authorizationHttpContext = authorizationHttpContext;
         ProfileApiHost = configuration["AppSettings:ApiHostProfile"];
     }
-    public async Task<ProfileViewModel> GetProfile()
+    public async Task< ProfileManagerViewModel> GetProfile()
     {
         try
         {
@@ -40,8 +41,9 @@ public class ProfileService : IProfileService
                 PropertyNameCaseInsensitive = true
             });
 
-            var profile = new ProfileViewModel
+            var profile = new  ProfileManagerViewModel
             {
+                
                 ProjectViewModels = profileJson.Projects,
                 SkillViewModels = profileJson.Skills,
                 UserViewModel = new UserViewModel

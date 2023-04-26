@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Client.Models;
+using MVC_Client.Models.ViewModels;
 using MVC_Client.Services.Profile;
 
 namespace MVC_Client.Controllers;
@@ -19,11 +20,11 @@ public class ProfileController : Controller
         try
         {
           
-            var profile = await _profileService.GetProfile();
+            var profile =await _profileService.GetProfile();
 
 
 
-        return View(profile);
+        return View(profile );
         }
         catch (Exception)
         {
