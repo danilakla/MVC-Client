@@ -9,4 +9,5 @@ public interface IGroupService
     Task AcceptInviteGroup(string room, string emailRoom);
     Task CreateGroup(CreateGroupDTO createGropDto);
     Task<List<Conversation>> GetGroups();
+
 }

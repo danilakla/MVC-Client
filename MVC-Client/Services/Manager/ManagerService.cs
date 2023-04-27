@@ -123,8 +123,45 @@ public class ManagerService : IManagerService
             throw;
         }
     }
+
+    public async Task<int> GetFacultieIdByName(string name)
+    {
+        try
+        {
+            try
+            {
+                string uri = uri = API.University.GetFacultieByName(UniversityApiHost,name);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authorizationHttpContext.GetIdentityTokoken());
+                var response = await _httpClient.GetAsync(uri);
+                response.EnsureSuccessStatusCode();
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var faculties = JsonSerializer.Deserialize<IdFacultieDto>(jsonResponse, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                return faculties.Id;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
     public class TokenDto
     {
         public string Token { get; set; }
+    }
+    public class IdFacultieDto
+    {
+        public int Id { get; set; }
     }
 }

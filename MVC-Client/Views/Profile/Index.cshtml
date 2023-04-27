@@ -146,11 +146,171 @@
 			}
 			else if (User.IsInRole("Dean"))
 			{
-				<button>gen token  student</button>
-				<button>gen token  test</button>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCreateGroup">
+					Create group
+				</button>
+				<!-- Modal -->
+				<div class="modal fade" id="ModalCreateGroup" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<form asp-action="CreateGroup" asp-controller="Dean" method="post">
+								<div class="modal-body">
+									<div class="form-group">
+										<label> N. groupe</label>
+
+										<input asp-for="@Model.NumberGroup" type="text" class="form-control" placeholder="Enter text of skill">
+										<label>course</label>
+
+										<input asp-for="@Model.NumberCourse" type="text" class="form-control" placeholder="Enter text of skill">
+										<input asp-for="@Model.ProfessionName" type="text" class="form-control" placeholder="Enter text of skill">
+
+									</div>
+
+									<hr />
+
+								</div>
+								<div class="modal-footer">
+									<h1>hi facultie</h1>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save changes</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCreateProfession">
+					Create Profession
+				</button>
+				<!-- Modal -->
+				<div class="modal fade" id="ModalCreateProfession" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<form asp-action="CreateProfession" asp-controller="Dean" method="post">
+								<div class="modal-body">
+									<div class="form-group">
+										<input asp-for="@Model.ProfessionName" type="text" class="form-control" placeholder="Enter text of skill">
+
+									</div>
+
+									<hr />
+
+								</div>
+								<div class="modal-footer">
+									<h1>hi facultie</h1>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save changes</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCreateStudentToke">
+					Student token
+				</button>
+				<!-- Modal -->
+				<div class="modal fade" id="ModalCreateStudentToke" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<form asp-action="CreateStudentToken" asp-controller="Dean" method="post">
+								<div class="modal-body">
+									<div class="form-group">
+										<label> N. groupe</label>
+										<input asp-for="@Model.NumberGroup" type="text" class="form-control" placeholder="Enter text of skill">
+										<label>course</label>
+
+										<input asp-for="@Model.NumberCourse" type="text" class="form-control" placeholder="Enter text of skill">
+										<input asp-for="@Model.ProfessionName" type="text" class="form-control" placeholder="Enter text of skill">
+
+									</div>
+
+									<hr />
+
+								</div>
+								<div class="modal-footer">
+									<h1>hi facultie</h1>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save changes</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
 
 
 			}
+			else if (User.IsInRole("Teacher"))
+			{
+
+
+
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalBroadcastGroup">
+					Create group chat
+				</button>
+				<!-- Modal -->
+				<div class="modal fade" id="ModalBroadcastGroup" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<form asp-action="CreateChatGroup" asp-controller="Teacher" method="post">
+								<div class="modal-body">
+									<div class="form-group">
+										<label> Room name</label>
+										<input asp-for="@Model.RoomName" type="text" class="form-control" placeholder="Enter text of skill">
+										<label> Desctiption </label>
+										<input asp-for="@Model.Desription" type="text" class="form-control" placeholder="Enter text of skill">
+										<label>Facultie</label>
+
+										<input asp-for="@Model.FacultieName" type="text" class="form-control" placeholder="Enter text of skill">
+										<label> Number of group</label>
+										<input asp-for="@Model.NumberGroup" type="text" class="form-control" placeholder="Enter text of skill">
+										<label>Course</label>
+
+										<input asp-for="@Model.NumberCourse" type="text" class="form-control" placeholder="Enter text of skill">
+									</div>
+
+									<hr />
+
+								</div>
+								<div class="modal-footer">
+									<h1>hi facultie</h1>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save changes</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+			}
+
 		</div>
 	</div>
 	<div class="skill">

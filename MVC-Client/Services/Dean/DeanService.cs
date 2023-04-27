@@ -67,7 +67,7 @@ public class DeanService : IDeanService
     {
         try
         {
-            string uri = uri = API.University.GenerateTokenDean(UniversityApiHost);
+            string uri = uri = API.University.GenerateTokenStudent(UniversityApiHost);
 
 
             var stringContent = new StringContent(JsonSerializer.Serialize(groupDTO), System.Text.Encoding.UTF8, "application/json");

@@ -26,7 +26,7 @@ public class ManagerController : Controller
     {
        var token= await _managerService.GenerateTokenTeacher();
 
-        return View(token);
+        return View(new { Token = token });
     }
 
     [HttpPost]
@@ -34,6 +34,6 @@ public class ManagerController : Controller
     {
        var token= await _managerService.GenerateTokenDean(createFacultieViewModel.FacultieName);
 
-        return View(token);
+        return View(new { Token=token });
     }
 }

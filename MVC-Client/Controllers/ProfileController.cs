@@ -22,7 +22,7 @@ public class ProfileController : Controller
           
             var profile =await _profileService.GetProfile();
 
-
+    
 
         return View(profile );
         }

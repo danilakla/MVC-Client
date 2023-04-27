@@ -54,6 +54,7 @@ public static class API
         public static string GetGroups(string baseUri) => $"{baseUri}/get-groups";
 
 
+
     }
 
     public static class University
@@ -74,6 +75,8 @@ public static class API
 
 
         public static string CreateProfession(string baseUri) => $"{baseUri}/create-professions";
-        public static string GenerateTokenStudent(string baseUri) => $"{baseUri}/generateToken/teacher";
+        public static string GenerateTokenStudent(string baseUri) => $"{baseUri}/generateToken/student";
+        public static string GetFacultieByName(string baseUri, string name) => $"{baseUri}/get-facultiByName/{name}";
+
     }
 }
