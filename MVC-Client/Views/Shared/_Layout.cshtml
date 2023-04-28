@@ -22,27 +22,47 @@
   
     @if (User.Identity.IsAuthenticated)
     {
-        <nav class="navbar fixed-top bg-body-tertiary">
+        <nav style="background-color:white" class="navbar fixed-top bg-body-tertiary nav-item-chat">
             <div class="container justify-content-end" >
-                <a class="navbar-brand" href="/Contact/Index">Contacts</a>
-                <a class="navbar-brand" href="/Notification/Index">Notifications</a>
+                <a class="navbar-brand" href="/Contact/Index">
+                    <div >
+                        <img src="https://cdn-icons-png.flaticon.com/512/9553/9553850.png" height="30" width="30" />
+                    </div>
+                </a>
+                <a class="navbar-brand" href="/Notification/Index">
+                    <div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1827/1827392.png" height="30" width="30" />
+                    </div>
+                </a>
 
-                <a class="navbar-brand" href="/Profile/Index">Profile</a>
-                <a class="navbar-brand" href="/Chat/Index">Chat</a>
+                <a class="navbar-brand" href="/Profile/Index">
+                 
+                    <div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" height="30" width="30" />
+                    </div>
+                </a>
+                <a class="navbar-brand" href="/Chat/Index">
+                    <div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/566/566718.png" height="30" width="30" />
+                    </div>
+                </a>
 
             </div>
         </nav>
     }
     else
     {
-         <nav class="navbar fixed-top bg-body-tertiary">
+        <nav style="background-color:white" class="navbar fixed-top bg-body-tertiary">
             <div class="container justify-content-end" >
-                <div class="navbar-brand" href="#">Fixed top</div>
-
+   <a class="navbar-brand" href="/Chat/Index">
+                    <div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/93/93634.png" height="30" width="30" />
+                    </div>
+                </a>
             </div>
         </nav>
     }
-    <div class="container" >
+    <div class="container" style="margin-top:100px" >
 
         <main role="main" class="pb-3">
             @RenderBody()

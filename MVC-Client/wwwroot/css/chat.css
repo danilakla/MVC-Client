@@ -132,8 +132,10 @@ hr {
 
 .chat-bubble {
     padding: 10px 14px;
-    background: #5b7da4;
-    color: white;
+    background-color: white;
+    color: black;
+    border-left: 4px solid #5054b4;
+    border-right: 4px solid #5054b4;
     margin: 10px 30px;
     border-radius: 9px;
     position: relative;
@@ -152,19 +154,6 @@ hr {
 
 
 
-.chat-bubble--left:after {
-    left: 0;
-    border-right-color: #417388;
-    border-left: 0;
-    margin-left: -20px;
-}
-
-.chat-bubble--right:after {
-    right: 0;
-    border-left-color: #374770;
-    border-right: 0;
-    margin-right: -20px;
-}
 
 @keyframes fadeIn {
     0% {

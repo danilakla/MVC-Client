@@ -5,11 +5,9 @@
 @model List<Contact>
 <div style="margin-top:200px">
 	<h1>Search New Contacts</h1>
-
-		<input type="text" class="form-control" placeholder="Enter name" id="nameIn">
-		<input type="text" class="form-control" placeholder="Enter lastname" id="lastnameIn">
-		<button id="searchBtn">Search</button>
-	<button class="test">Search</button>
+		<input style="margin-bottom:20px" type="text" class="form-control" placeholder="Enter name" id="nameIn">
+	<input style="margin-bottom:20px" type="text" class="form-control" placeholder="Enter lastname" id="lastnameIn">
+	<button id="searchBtn" class="btn btn-primary">Search</button>
 
 	<div class="container-contact">
 			
@@ -38,11 +36,18 @@
 					type:"GET",
 					success:(data)=>{
 						data.forEach(e=>{
+							let ph;
+							if(e.photo==null||e.photo.length==0){
+								ph = "https://img.icons8.com/?size=1x&id=ckaioC1qqwCu&format=png";
+							}else{
+								ph = `data:image/gif;base64, ${e.photo}`;
+							}
 							$(".container-contact").append(
-								`<div class="contact" >
-												<img width=40  height=40 src="data:image/gif;base64, ${e.photo}"/>
-										<p>${e.lastName}</p>
-								<p>${e.name}</p>
+								`<div class="contact"  >
+										<div class="title-contact"><img width=40  height=40 src="${ph}"/>
+												<p>${e.lastName}</p>
+										<p>${e.name}</p></div>
+														
 										<button class="sendNotificationBtn" idContact=${e.id}>send</button>
 								</div>`
 							)
@@ -66,13 +71,19 @@
 								beforeSend: function (xhr) {
 									xhr.setRequestHeader("Authorization", `Bearer ${token}`);
 								},
-								success: (data)=>{
-									console.log(data);
+								      
+
+									success: function(){
+									window.location.replace("https://localhost:7107/Feedback/Success");
+
+								},
+								error: function () {
+									window.location.replace("https://localhost:7107/Feedback/Reject");
 								},
 								headers: {
 									'Content-Type': 'application/json'
 								},
-								dataType: "json"
+								dataType: "text"
 							});
 						});
 					}

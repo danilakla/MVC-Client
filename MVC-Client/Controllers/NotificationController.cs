@@ -25,9 +25,9 @@ public class NotificationController : Controller
         catch (Exception)
         {
 
-            throw;
+            return Redirect("/Feedback/Reject");
         }
- 
+
     }
     [Route("/notificaiton-get/{id:int}")]
     public async Task<IActionResult> Notification(int id)
@@ -40,9 +40,9 @@ public class NotificationController : Controller
         catch (Exception)
         {
 
-            throw;
+            return Redirect("/Feedback/Reject");
         }
- 
+
     }
 
     [HttpPost("/notificaiton-delete/{id}")]
@@ -51,12 +51,12 @@ public class NotificationController : Controller
         try
         {
             await _notificationService.DeleteNotification(id);
-           return Redirect("/Notification/Index");
+            return Redirect("/Feedback/Success");
         }
         catch (Exception)
         {
 
-            throw;
+            return Redirect("/Feedback/Reject");
         }
 
     }
@@ -70,12 +70,12 @@ public class NotificationController : Controller
             await _friendService.AddFriend(id);
             await _notificationService.DeleteNotification(id);
 
-            return Redirect("/Notification/Index");
+            return Redirect("/Feedback/Success");
         }
         catch (Exception)
         {
 
-            throw;
+            return Redirect("/Feedback/Reject");
         }
 
     }
@@ -87,12 +87,12 @@ public class NotificationController : Controller
         {
             await _groupService.AcceptInviteGroup(roomName, emailForRoom);
 
-            return Redirect("/Notification/Index");
+            return Redirect("/Feedback/Success");
         }
         catch (Exception)
         {
 
-            throw;
+            return Redirect("/Feedback/Reject");
         }
 
     }

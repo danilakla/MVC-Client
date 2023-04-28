@@ -33,26 +33,26 @@
 }
 .skill{
  padding:60px;
-    background-color:grey;
 }
-.skill-title{
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
+.skill-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-.skill-item{
-    background-color:aliceblue;
-    color:black;
-
-    display:flex;
-    flex-direction:row;
-    margin-bottom:40px;
+.skill-item h1 {
+    margin-left: 30px;
 }
+    .skill-item {
+        background-color: #1755c4;
+        color: white;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 40px;
+    }
 
 .project {
-    margin-top:200px;
+    margin-top:50px;
     padding: 60px;
-    background-color: grey;
 }
 
 .project-title {
@@ -62,8 +62,8 @@
 }
 
 .project-item {
-    background-color: aliceblue;
-    color: black;
+    background-color: #1755c4;
+    color: white;
     display: flex;
     flex-direction: row;
     margin-bottom: 40px;

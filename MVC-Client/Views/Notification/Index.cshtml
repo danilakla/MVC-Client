@@ -5,7 +5,11 @@
 
 <div style="margin-top:200px">
 	<div class="notification-container">
-		<h1>Your Notification</h1>
+		<h1 style="margin-bottom:70px;">Your Notification</h1>
+		@if (Model.Count == 0)
+		{
+			<div style="background-color:cornflowerblue; color:white; padding:40px; text-align:center"><h1>Empty</h1></div>
+		}
 		@foreach (var item in Model)
 		{
 			<a href="/notificaiton-get/@item.Id">

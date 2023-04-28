@@ -3,19 +3,22 @@
 
 <div margin-top:100px>
 	
-	<div>
-		<h1>@Model.FromWhom</h1>
-		<h1>@Model.MessageText</h1>
+	<div class="item-noti">
+		<h1 style="color:cornflowerblue">@Model.FromWhom</h1>
+		<p style="border-left:1px solid blue; border-right:1px solid blue;">@Model.MessageText</p>
 		@if (string.IsNullOrEmpty(Model.RoomName))
 		{
-	<form method="post" action="/accept-notification/@Model.Id">
-			<button>accept</button>
+			<div class="form-btn">
+				<form method="post" action="/accept-notification/@Model.Id">
+					<button>accept</button>
 
-		</form>
-		<form action="/notificaiton-delete/@Model.Id" method="post">
-			<button>cansel</button>
+				</form>
+				<form action="/notificaiton-delete/@Model.Id" method="post">
+					<button>cansel</button>
 
-		</form>
+				</form>
+			</div>
+
 		}
 		else
 		{

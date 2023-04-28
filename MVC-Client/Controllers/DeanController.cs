@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC_Client.DTO;
 using MVC_Client.DTO.Client;
 using MVC_Client.DTO.Server;
 using MVC_Client.Services.Dean;
@@ -18,12 +19,14 @@ public class DeanController : Controller
     {
         try
         {
-            await _deanService.CreateProfession(createProfessionDTO.Name);
+            
+            await _deanService.CreateProfession(createProfessionDTO.ProfessionName);
 
-            return Redirect("/Profile/Index");
+            return Redirect("/Feedback/Success");
         }
         catch (Exception)
         {
+            return Redirect("/Feedback/Reject");
 
             throw;
         }
@@ -35,13 +38,17 @@ public class DeanController : Controller
     public async Task<IActionResult> CreateGroup(GroupDTO   groupDTO)
     {
         try
+
         {
+
+         
             await _deanService.CreateGroup(groupDTO);
 
-            return Redirect("/Profile/Index");
+            return Redirect("/Feedback/Success");
         }
         catch (Exception)
         {
+            return Redirect("/Feedback/Reject");
 
             throw;
         }
@@ -53,14 +60,15 @@ public class DeanController : Controller
     {
         try
         {
-           var token= await _deanService.GenerateTokenStudent(groupDTO);
+            
+            var token= await _deanService.GenerateTokenStudent(groupDTO);
 
             return View(new  {Token=token });
         }
         catch (Exception)
         {
 
-            throw;
+            return Redirect("/Feedback/Reject");
         }
     }
     public IActionResult Index()

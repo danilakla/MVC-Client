@@ -7,4 +7,59 @@
 
 .item-notif:hover{
     background-color:black
+
+}
+.container-contact{
+    margin-top:50px;
+}
+.container-contact .contact {
+    display:flex;
+    justify-content:space-between;
+
+    background-color: cornflowerblue;
+    color: white;
+    margin-bottom: 20px
+}
+.title-contact{
+    display:flex;
+    flex-direction:row;
+}
+    
+    .title-contact:first-child {
+        margin: 20px;
+    }
+.title-contact p{
+    margin-left:10px;
+}
+
+.contact button {
+    background-color: white;
+    color: cornflowerblue;
+    border: 0px;
+    width:100px;
+    height:40px;
+    border-radius:4px;
+    margin:5px;
+}
+
+.contact, .item-noti button:hover {
+    color: white;
+    background-color: black;
+}
+.item-noti p{
+    padding:100px;
+    margin-top:50px;
+}
+.item-noti button {
+    background-color: cornflowerblue;
+    color: white;
+    border: 0px;
+    width: 100px;
+    height: 40px;
+    border-radius: 4px;
+    margin: 5px;
+}
+.form-btn {
+    display: flex;
+    flex-direction: row;
 }

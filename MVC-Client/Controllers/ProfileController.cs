@@ -28,8 +28,8 @@ public class ProfileController : Controller
         }
         catch (Exception)
         {
+            return Redirect("/Feedback/Reject");
 
-            throw;
         }
        
     }
@@ -39,15 +39,17 @@ public class ProfileController : Controller
         try
         {
 
+         
+
             await _profileService.UpdateProfile(profileViewModel.UpdateProfileViewModel);
 
+            return Redirect("/Feedback/Success");
 
-            return Redirect("/Profile");
         }
         catch (Exception)
         {
 
-            throw;
+            return Redirect("/Feedback/Reject");
         }
 
     }

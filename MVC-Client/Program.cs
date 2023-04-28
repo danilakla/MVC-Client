@@ -89,7 +89,10 @@ app.UseAuthentication();
 app.UseStatusCodePages(async context =>
 {
     var response = context.HttpContext.Response;
-
+    if (response.StatusCode == (int)HttpStatusCode.InternalServerError)
+    {
+        response.Redirect("/Feedback/Reject");
+    }
     if ((response.StatusCode == (int)HttpStatusCode.Unauthorized ||
             response.StatusCode == (int)HttpStatusCode.Forbidden)&& coun == 0)
     { 
@@ -114,7 +117,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Profile}/{action=Index}/{id?}");
 
 app.Run();
 

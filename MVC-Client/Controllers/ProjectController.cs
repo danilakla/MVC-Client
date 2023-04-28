@@ -16,31 +16,75 @@ public class ProjectController : Controller
 
     public async Task<IActionResult> AddProject(ProfileViewModel profileViewModel)
     {
-        await _projectService.AddProject(profileViewModel.AddNewProject);
+        try
+        {
+       
+   await _projectService.AddProject(profileViewModel.AddNewProject);
 
-        return Redirect("/Profile");
+            return Redirect("/Feedback/Success");
+
+        }
+        catch (Exception)
+        {
+
+            return Redirect("/Feedback/Reject");
+        }
+     
     }
 
     [HttpPost]
 
     public async Task<IActionResult> DeleteProject(int id)
     {
-        await _projectService.DeleteProject(id);
+        try
+        {
+      await _projectService.DeleteProject(id);
 
-        return Redirect("/Profile");
+            return Redirect("/Feedback/Success");
+
+        }
+        catch (Exception)
+        {
+
+            return Redirect("/Feedback/Reject");
+        }
+  
     }
     [HttpGet]
     public async Task<IActionResult> UpdateProject(int id)
     {
-        var skill = await _projectService.GetProject(id);
+        try
+        {
+    var skill = await _projectService.GetProject(id);
 
         return View(skill);
+        }
+        catch (Exception)
+        {
+
+            return Redirect("/Feedback/Reject");
+        }
+
     }
     [HttpPost]
     public async Task<IActionResult> UpdateProject(ProjectViewModel projectViewModel)
     {
-        await _projectService.UpdateProject(projectViewModel);
+        try
+        {
 
-        return Redirect("/Profile");
+
+         
+
+            await _projectService.UpdateProject(projectViewModel);
+
+            return Redirect("/Feedback/Success");
+
+        }
+        catch (Exception)
+        {
+
+            return Redirect("/Feedback/Reject");
+        }
+    
     }
 }

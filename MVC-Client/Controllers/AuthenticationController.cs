@@ -22,6 +22,11 @@ public class AuthenticationController : Controller
     {
         try
         {
+            if(!ModelState.IsValid)
+            {
+                return View(addLoginUserDTO);
+
+            }
             var tokens = await _authenticationService.LoginUser(addLoginUserDTO);
             Response.Cookies.Append("access_token", tokens.AccessToken);
             Response.Cookies.Append("refresh_token", tokens.RefreshToken);
@@ -29,9 +34,8 @@ public class AuthenticationController : Controller
         }
         catch (Exception)
         {
-            return Redirect("/Preview");
+            return Redirect("/Feedback/Reject");
 
-            throw;
         }
 
    

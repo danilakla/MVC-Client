@@ -1,6 +1,7 @@
 ﻿@using MVC_Client.Infrastructure;
 @using MVC_Client.Models.Chat;
 @using MVC_Client.Models.ViewModels;
+@using System.Text;
 @inject AuthorizationHttpContext authCont;
 @model ChatRoomViewModel;
 <div style="background-color: white" class="cont">
@@ -27,12 +28,13 @@
                         <div class="friend-drawer friend-drawer--onhover item-friend" email="@item.Email" roomName="@item.ConversationName">
                             @if ((item.Photo is null) || (@item.Photo.Length == 0))
                             {
-                                <img class="profile-image" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="">
+                                <img class="profile-image" src="https://img.icons8.com/?size=1x&id=ckaioC1qqwCu&format=png" alt="">
                             }
                             else
 
                             {
-                                <img class="profile-image" src="data:image/gif;base64, @item.Photo" alt="">
+
+                                <img class="profile-image" src="data:image/gif;base64, @Convert.ToBase64String(item.Photo)" alt="">
 
                             }
                             <div class="text">
@@ -120,9 +122,11 @@
             $(".chat-panel").append(
                 `        <div class="row no-gutters" style="border-bottom:2px solid gray">
 
-                          <div class="col-md-3">
+                          <div >
                                                                             <p> ${(new Date(data.time)).getFullYear()}-${(new Date(data.time)).getMonth()}-${(new Date(data.time)).getDate()} ${(new Date(data.time)).getHours()}:${(new Date(data.time)).getMinutes()}</p>
-                            <div class="chat-bubble chat-bubble--left">
+                            <div class="chat-bubble ">
+                                                                                                                <p>${data.fromWhom}</p>
+
                                               ${data.messageText}
                             </div>
 
@@ -180,10 +184,11 @@
                         data.forEach(e => {
                             $(".chat-panel").append(
                                 `        <div class="row no-gutters" style="border-bottom:2px solid gray">
-
-                          <div class="col-md-3">
+                          <div >
                                             <p> ${(new Date(e.time)).getFullYear()}-${(new Date(e.time)).getMonth()}-${(new Date(e.time)).getDate()} ${(new Date(e.time)).getHours()}:${(new Date(e.time)).getMinutes()}</p>
-                            <div class="chat-bubble chat-bubble--left">
+                            <div class="chat-bubble ">
+                                                                    <p>${e.fromWhom}</p>
+
                                       ${e.messageText}
                             </div>
 

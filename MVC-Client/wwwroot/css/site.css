@@ -20,3 +20,10 @@ a {
     text-decoration: none;
     color:inherit;
 }
+.nav-item-chat a{
+    margin-left:30px;
+    
+}
+.form-group input{
+    margin-bottom:30px;
+}

@@ -1,6 +1,10 @@
-﻿namespace MVC_Client.DTO.Client;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MVC_Client.DTO.Client;
 
 public class CreateProfessionDTO
 {
-    public string Name { get; set; }
+    [Required(ErrorMessage = "ProfessionName is required")]
+
+    public string ProfessionName { get; set; }
 }

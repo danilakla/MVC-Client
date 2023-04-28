@@ -25,6 +25,7 @@ public class ChatController : Controller
         }
         catch (Exception)
         {
+            return Redirect("/Feedback/Reject");
 
             throw;
         }

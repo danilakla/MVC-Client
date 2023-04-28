@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Client.DTO;
+using MVC_Client.Models;
 using MVC_Client.Services.Registration;
 using System.Net.Http;
 
@@ -28,6 +29,11 @@ public class RegistrationController : Controller
     {
         try
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createUniversityDTO);
+            }
+
 
             await _registrationService.RegistrationUniversity(createUniversityDTO);
             return Redirect("/confirm/email");
@@ -35,11 +41,13 @@ public class RegistrationController : Controller
         }
         catch (Exception)
         {
-            return Redirect("/Preview");
+            return Redirect("/Feedback/Reject");
 
-            throw;
         }
     }
+
+
+
 
     public IActionResult RegistrationUser()
     {
@@ -50,6 +58,10 @@ public class RegistrationController : Controller
     {
         try
         {
+            if (!ModelState.IsValid)
+            {
+                return View(registrationUserDTO);
+            }
 
             var tokens=await _registrationService.RegistrationUser(registrationUserDTO);
             if(tokens is null)
@@ -68,7 +80,7 @@ public class RegistrationController : Controller
         }
         catch (Exception)
         {
-            return Redirect("/Preview");
+            return Redirect("/Feedback/Reject");
 
             throw;
         }

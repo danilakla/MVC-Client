@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC_Client.DTO.Client;
 using MVC_Client.Models.ViewModels;
 using MVC_Client.Services.Dean;
 using MVC_Client.Services.Manager;
@@ -8,7 +9,7 @@ public class ManagerController : Controller
 {
     private readonly IManagerService _managerService;
 
-    public ManagerController(IManagerService  managerService)
+    public ManagerController(IManagerService managerService)
     {
         _managerService = managerService;
     }
@@ -16,24 +17,56 @@ public class ManagerController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateFacultie(CreateFacultieViewModel createFacultieViewModel)
     {
-        await _managerService.CreateFacultie(createFacultieViewModel.FacultieName);
+        try
+        {
+            
+            await _managerService.CreateFacultie(createFacultieViewModel.FacultieName);
 
-        return Redirect("/Profile");
+            return Redirect("/Feedback/Success");
+        }
+        catch (Exception)
+        {
+            return Redirect("/Feedback/Reject");
+
+            throw;
+        }
+
     }
 
     [HttpPost]
     public async Task<IActionResult> TeacherToken()
     {
-       var token= await _managerService.GenerateTokenTeacher();
+        try
+        {
 
-        return View(new { Token = token });
+
+            var token = await _managerService.GenerateTokenTeacher();
+
+            return View(new { Token = token });
+        }
+        catch (Exception)
+        {
+
+            return Redirect("/Feedback/Reject");
+        }
+
     }
 
     [HttpPost]
     public async Task<IActionResult> DeanToken(CreateFacultieViewModel createFacultieViewModel)
     {
-       var token= await _managerService.GenerateTokenDean(createFacultieViewModel.FacultieName);
+        try
+        {
+          
+            var token = await _managerService.GenerateTokenDean(createFacultieViewModel.FacultieName);
 
-        return View(new { Token=token });
+            return View(new { Token = token });
+        }
+        catch (Exception)
+        {
+
+            return Redirect("/Feedback/Reject");
+        }
+
     }
 }

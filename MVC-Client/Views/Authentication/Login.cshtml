@@ -30,6 +30,10 @@
         </div>
         <div class="form-group">
             <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+        <div class="col-md-10" style="color:red">
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        
         </div>
       
         <hr />
